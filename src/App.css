@@ -1,0 +1,23 @@
+h2 {
+  color: rgb(177, 142, 30);
+}
+
+#heading {
+  color: rgb(177, 142, 30);
+}
+
+#h-line{
+  width: 170px;
+  color: rgb(177, 142, 30);
+  border-bottom: 4px solid rgb(177, 142, 30);
+
+}
+
+
+#cancel{
+  color: rgb(177, 142, 30);
+}
+
+#reg{
+  background-color: rgb(177, 142, 30);
+}
