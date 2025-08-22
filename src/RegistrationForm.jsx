@@ -37,14 +37,11 @@ function RegistrationForm() {
                  Subject:${values.subject},
                  Address:${values.address},
                 `
-                
-
             )
 
         }
     })
-
-
+    
     return (
         <div className='d-flex align-items-center justify-content-center'>
 
