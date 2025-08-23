@@ -21,3 +21,10 @@ h2 {
 #reg{
   background-color: rgb(177, 142, 30);
 }
+
+.form-error{
+  color: rgb(199, 0, 0);
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
