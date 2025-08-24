@@ -9,15 +9,16 @@ import { Button } from '@mui/material';
 import { registerSchema } from './registrationSchema';
 import Swal from 'sweetalert2';
 
-const subjects = ['Select','Biology', 'Computer Science', 'Commerce', 'Humanities']
+const subjects = ['Select', 'Biology', 'Computer Science', 'Commerce', 'Humanities']
 
 function RegistrationForm() {
 
-    const { values, handleSubmit, handleChange, errors, touched, handleBlur, resetForm ,isValid,dirty} = useFormik({
+    const { values, handleSubmit, handleChange, errors, touched, handleBlur, resetForm, isValid, dirty } = useFormik({
         initialValues: {
             name: '',
             email: '',
             dob: '',
+            mobile: '',
             gender: '',
             subject: '',
             address: ''
@@ -25,28 +26,30 @@ function RegistrationForm() {
         validationSchema: registerSchema,
         validateOnBlur: true,
 
-       // This is your onSubmit function
-onSubmit:( values,action) => {
- 
-  const htmlContent = `
+        // This is your onSubmit function
+        onSubmit: (values, action) => {
+
+            const htmlContent = `
     <p>
       <span style="font-weight:bold;">Name:</span> <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.name}</span><br>
       <span style="font-weight:bold;">Email:</span>  <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.email}</span><br>
       <span style="font-weight:bold;">DOB:</span> <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.dob}</span><br>
+            <span style="font-weight:bold;">DOB:</span> <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.mobile}</span><br>
+
       <span style="font-weight:bold;">Gender:</span>  <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.gender}</span><br>
       <span style="font-weight:bold;">Subject:</span>  <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.subject}</span><br>
       <span style="font-weight:bold;">Address:</span>  <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.address}</span>
     </p>
   `;
 
-  Swal.fire({
-    title: "Data added successfully!",
-    html: htmlContent, 
-    icon: "success",
-  });
+            Swal.fire({
+                title: "Data added successfully!",
+                html: htmlContent,
+                icon: "success",
+            });
 
-  action.resetForm()
-}
+            action.resetForm()
+        }
 
     })
 
@@ -70,6 +73,8 @@ onSubmit:( values,action) => {
                         {errors.email && touched.email && errors.email.length > 0 ? <p className='form-error'>{errors.email}</p> : null}
                         <input type="date" name='dob' onChange={handleChange} onBlur={handleBlur} value={values.dob} className='form-control my-3' />
                         {errors.dob && touched.dob ? <p className='form-error'>{errors.dob}</p> : null}
+                        <input type="text" name='mobile' onChange={handleChange} onBlur={handleBlur} value={values.mobile} className='form-control mb-2' placeholder='Enter your mobile number' />
+                        {errors.mobile && touched.mobile ? <p className='form-error '>{errors.mobile}</p> : null}
 
                         <label htmlFor="">Gender</label>
                         <RadioGroup
@@ -103,7 +108,7 @@ onSubmit:( values,action) => {
                         {errors.address && touched.address ? <p className='form-error'>{errors.address}</p> : null}
                         <div className='d-flex justify-content-between'>
                             <Button onClick={resetForm} id='cancel'>Cancel</Button>
-                            <Button variant="contained" disabled={!isValid ||!dirty } id='reg' type='submit'>Register</Button>
+                            <Button variant="contained" disabled={!isValid || !dirty} id='reg' type='submit'>Register</Button>
                         </div>
 
 
