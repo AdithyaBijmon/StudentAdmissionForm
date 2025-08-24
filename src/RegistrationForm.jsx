@@ -7,13 +7,13 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Button } from '@mui/material';
 import { registerSchema } from './registrationSchema';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
-const subjects = ['Biology', 'Computer Science', 'Commerce', 'Humanities']
+const subjects = ['Select','Biology', 'Computer Science', 'Commerce', 'Humanities']
 
 function RegistrationForm() {
 
-    const { values, handleSubmit, handleChange, errors, touched, handleBlur, resetForm } = useFormik({
+    const { values, handleSubmit, handleChange, errors, touched, handleBlur, resetForm ,isValid,dirty} = useFormik({
         initialValues: {
             name: '',
             email: '',
@@ -25,18 +25,28 @@ function RegistrationForm() {
         validationSchema: registerSchema,
         validateOnBlur: true,
 
-        onSubmit: (values, action) => {
-            // console.log(values);
-            // console.log(errors)
-            swal("Data added successfully!", `<p><b>Name:</b> <span style="color: #337ab7;">${values.name}</span></p>,
-                 Email: ${values.email},
-                 DOB: ${values.dob},
-                 Gender: ${values.gender},
-                 Subject: ${values.subject},
-                 Address: ${values.address}`, "success");
+       // This is your onSubmit function
+onSubmit:( values,action) => {
+ 
+  const htmlContent = `
+    <p>
+      <span style="font-weight:bold;">Name:</span> <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.name}</span><br>
+      <span style="font-weight:bold;">Email:</span>  <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.email}</span><br>
+      <span style="font-weight:bold;">DOB:</span> <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.dob}</span><br>
+      <span style="font-weight:bold;">Gender:</span>  <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.gender}</span><br>
+      <span style="font-weight:bold;">Subject:</span>  <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.subject}</span><br>
+      <span style="font-weight:bold;">Address:</span>  <span style="color: rgb(177, 142, 30); font-weight: 500;">${values.address}</span>
+    </p>
+  `;
 
-            action.resetForm()
-        }
+  Swal.fire({
+    title: "Data added successfully!",
+    html: htmlContent, 
+    icon: "success",
+  });
+
+  action.resetForm()
+}
 
     })
 
@@ -93,7 +103,7 @@ function RegistrationForm() {
                         {errors.address && touched.address ? <p className='form-error'>{errors.address}</p> : null}
                         <div className='d-flex justify-content-between'>
                             <Button onClick={resetForm} id='cancel'>Cancel</Button>
-                            <Button variant="contained" id='reg' type='submit'>Register</Button>
+                            <Button variant="contained" disabled={!isValid ||!dirty } id='reg' type='submit'>Register</Button>
                         </div>
 
 
